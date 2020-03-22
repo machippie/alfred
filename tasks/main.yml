@@ -20,19 +20,12 @@
       tags:
         - alfred
 
-    - name: Remove quarantine flag
-      register: alfred_quarantine
-      failed_when: alfred_quarantine.rc != 0 and "No such xattr" not in alfred_quarantine.stderr
-      changed_when: alfred_quarantine.rc == 0
-      command: xattr -d com.apple.quarantine /Applications/Alfred\ 4.app
-      tags:
-        - alfred
-
-    - name: Start background application
-      when: alfred_started
-      changed_when: False
-      command: open -j /Applications/Alfred\ 4.app
-      tags:
-        - alfred
+- name: Remove quarantine flag
+  register: alfred_quarantine
+  failed_when: alfred_quarantine.rc != 0 and "No such xattr" not in alfred_quarantine.stderr
+  changed_when: alfred_quarantine.rc == 0
+  command: xattr -d com.apple.quarantine /Applications/Alfred\ 4.app
+  tags:
+    - alfred
 
 ...
